@@ -1,0 +1,7 @@
+# LaTeX files
+*.aux
+*.log
+*.toc
+
+# Specification for subjects
+spec.pdf
