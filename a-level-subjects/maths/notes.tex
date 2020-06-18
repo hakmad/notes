@@ -77,6 +77,54 @@ Interval notation:
 Set and interval notation used to show solutions for inequalities. Assumed that
 \( x \in \mathbb{R} \) unless otherwise.
 
+\section{Disproof by counterexample}
+
+Disproving a hypothesis by finding an example that contradicts it. Example: \[ \text{Show that }
+\sqrt{x^2} \text{ is not always equal to }  x \]
+
+Let \( x = -4 \). Then: \[ x^2 = 16, \sqrt{x^2} = \pm 4 \]
+
+\( x \neq \pm 4 \) therefore the hypothesis is incorrect.
+
+\section{Proof by deduction}
+
+Proving a hypothesis using algebra and logic. Example: \[ \text{Show that the sum of 3 consecutive
+numbers is a multiple of 3} \]
+
+Let 3 consecutive numbers be \( n, n + 1, n + 2 \). Then: \[ n + n + 1 + n + 2 = 3n + 3 \]
+
+\( 3n + 3 \) can be factorised to \( 3(n + 1) \), which is a multiple of 3, therefore the
+hypothesis has been proved.
+
+\section{Proof by exhaustion}
+
+Proving a hypothesis by checking every possible case. Example: \[ \text{Prove that no square number
+less than 100 ends in 8} \]
+
+The square numbers less than 100 are: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100. None of these end in 7
+therefore the hypothesis has been proved.
+
+\section{Proof by contradiction}
+
+Proving a hypothesis by trying to prove the opposite of the hypothesis and showing that this leads
+to an invalid conclusion. Example: \[ \text{Prove that } \sqrt{2} \text{ is irrational} \]
+
+Let \( \sqrt{2} = \frac{a}{b} \) such that \( a, b \in \mathbb{Z}, \gcd(a, b) = 1 \). Then: \[ 2 =
+\frac{a^2}{b^2}, 2b^2 = a^2 \]
+
+Therefore \( a^2 \) is a multiple of 2, therefore \( a \) is a multiple of 2. Let \( a = 2k \).
+Then \[ 2b^2 = (2k)^2, 2b^2 = 4k^2, b^2 = 2k^2 \]
+
+Therefore \( b^2 \) is a multiple of 2, therefore \( b \) is a multiple of 2. This contradicts
+\( \gcd(a, b) = 1 \), therefore \( \sqrt{2} \) is irrational.
+
+Another example: \[ \text{Prove that there are an infinite number of primes} \]
+
+Assume that there are a finite number (\( n \)) of primes: \( p_1, p_2, \dots, p_n \). Let \( P =
+p_1 \times p_2 \times \dots p_n + 1 \). \( P \) is not a prime as it is greater than any of the
+primes, but \( P \) is not divisible by any of the primes. Therefore either \( P \) is prime or
+\( P \) is divisible by a prime greater than \( p_n \). Either way, we have proved the hypothesis.
+
 \chapter{Algebra and Functions}
 
 \chapter{Coordinate Geometry in the \( x - y \) plane}
