@@ -3,5 +3,8 @@
 *.log
 *.toc
 
-# Specification for subjects
-spec.pdf
+# All PDF files...
+*.pdf
+
+# ...except notes
+!notes.pdf
