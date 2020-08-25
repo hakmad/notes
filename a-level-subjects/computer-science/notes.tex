@@ -21,6 +21,8 @@
 
 \chapter{Components of a computer and their uses}
 
+\section{Structure and function of the CPU}
+
 The CPU is made up of 3 main components:
 
 \begin{itemize}
@@ -29,7 +31,7 @@ The CPU is made up of 3 main components:
 	\item{Buses}
 \end{itemize}
 
-\section{Units}
+\subsection{Units}
 
 Units: Performs operations within the CPU.
 
@@ -40,7 +42,7 @@ Units: Performs operations within the CPU.
 	\item{Arithmetic and Logic Unit (ALU)}
 \end{itemize}
 
-\subsection{Control Unit}
+\subsubsection{Control Unit}
 
 CU: directs the operation of the CPU. Its resposibilities are as follows:
 
@@ -52,7 +54,7 @@ CU: directs the operation of the CPU. Its resposibilities are as follows:
 	\item{Storing the results of data back into main memory.}
 \end{itemize}
 
-\subsection{Arithmetic and Logic Unit}
+\subsubsection{Arithmetic and Logic Unit}
 
 ALU: performs arithmetic and logical operations on data. Its capabilities are
 as follows:
@@ -75,7 +77,7 @@ as follows:
 The result of any calculations performed by the ALU is stored in the
 Accumulator register (ACC).
 
-\section{Registers}
+\subsection{Registers}
 
 Registers: small, extremely fast memory cells that are available to the CPU.
 Used to temporarily store any data that is being worked on by the CPU (this
@@ -96,7 +98,7 @@ could be an instruction, an address, or some other value).
 		instruction being executed.}
 \end{itemize}
 
-\section{Buses}
+\subsection{Buses}
 
 Bus: connects the CPU to other parts of the computer (cheifly main memory).
 
@@ -111,7 +113,7 @@ of bits that the bus can transmit simultaneously at any given moment.
 	\item{Data bus}
 \end{itemize}
 
-\subsection{Address bus}
+\subsubsection{Address bus}
 
 Address bus: used for transfer of memory addresses where data is to be read
 from/written to. Is unidirectional.
@@ -124,7 +126,7 @@ Width of this bus is proportional to the number of addressable locations -
 a 32 bit width address bus can address 4294967296 (2\^32) discrete locations
 in main memory.
 
-\subsection{Control Bus}
+\subsubsection{Control Bus}
 
 Control bus: used for transfer of control signals between the components of
 the computer, and controls the use of the other buses. Is bidirectional.
@@ -142,9 +144,45 @@ Can transmit a variety of signals:
 	\item{Clock: synchronise operations.}
 \end{itemize}
 
-\subsection{Data Bus}
+\subsubsection{Data Bus}
 
-Data bus: used for transfer of data and instructions.
+Data bus: used for transfer of data and instructions. Is bidirectional.
+
+\section{Fetch-Decode-Execute cycle}
+
+Fetch-decode-execute cycle: process carried out by the CPU in order to execute
+an instruction. Follows the following steps:
+
+\begin{enumerate}
+	\item{Fetch}
+		\begin{enumerate}
+			\item{Address in PC is copied to MAR}
+			\item{Address in MAR is requested from RAM via address
+				bus}
+			\item{Instruction at address is copied to MDR via data
+				bus}
+			\item{PC is incremented by 1}
+			\item{Instruction in MDR is copied to CIR}
+		\end{enumerate}
+	\item{Decode}
+		\begin{enumerate}
+			\item{Instruction in CIR is decoded by CU (split into
+				opcode and operand - see below for more
+				details)}
+		\end{enumerate}
+	\item{Execute}
+		\begin{enumerate}
+			\item{Instruction in CIR is executed}
+			\item{Check for and handle any interrupts}
+		\end{enumerate}
+\end{enumerate}
+
+\subsection{Instruction structure}
+
+Opcode: type of instruction to be executed.
+
+Operand: either data to be operated on or address which contains data to be
+operated on.
 
 \chapter{Software and software development}
 
