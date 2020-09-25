@@ -2,8 +2,8 @@
 
 This directory contains notes for my A Level subjects:
 
-- Maths (H240)
-- Further Maths (H245)
+- Mathematics (H240)
+- Further Mathematics (H245)
 - Computer Science (H446)
 
 These notes are all written using LaTeX.
