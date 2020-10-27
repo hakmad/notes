@@ -3,6 +3,28 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{parskip}
 
+\usepackage{tikz}
+
+\usetikzlibrary{arrows, shapes.geometric, positioning}
+\tikzset{node distance=1cm, auto}
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm,
+minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, rounded corners, minimum width=3cm,
+minimum height=3cm, text centered, draw=black]
+\tikzstyle{goal} = [draw, ellipse, minimum width=3cm, minimum height=1cm,
+draw=black]
+\tikzstyle{line} = [draw, -latex']
+
+\usepackage{listings}
+
+\lstset{basicstyle=\ttfamily}
+\lstdefinelanguage{pseudo}{
+	morekeywords={while, if, else, for, function, return, start, stop},
+	sensitive=false,
+	morecomment=[l]{\#},
+	escapechar=\%
+}
+
 \begin{document}
 
 \begin{titlepage}
@@ -12,5 +34,196 @@
 	\vspace{0.5cm}
 	\large{ECM1400}
 \end{titlepage}
+
+\chapter{Week 1}
+
+Problem solving with code.
+
+\section{Notes}
+
+\subsection{Programming concepts}
+
+Programming: process of writing computer code to solve real world problems.
+Expressed by the following:
+
+\begin{itemize}
+	\item{Being familiar with basic constructs/concepts of a programming
+		language.}
+	\item{Breaking a problem down into smaller problems that are solved
+		using computer programs.}
+\end{itemize}
+
+Programming language: a formal language used to dictate the actions of a
+computer.
+
+Program: a set of instructions written in a programming language.
+
+Algorithm: a well defined, finite process for achieving a certain outcome.
+Examples include an algorithm to sort a list of numbers. Basic elements of
+algorithms:
+
+\begin{itemize}
+	\item{Loops: repitition of an action.}
+		\begin{itemize}
+			\item{Repeating till a condition is reached.}
+			\item{Repeating a specific number of times.}
+		\end{itemize}
+	\item{Conditionals/branching: change behaviour depending on input.}
+	\item{Functions: encapsulation of parts of the algorithm.}
+	\item{Variables: data the algorithm works on.}
+\end{itemize}
+
+Representations of algorithms:
+
+\begin{itemize}
+	\item{Visual depiction through flowcharts.}
+	\item{Natural language description through pseudocode.}
+\end{itemize}
+
+\subsection{Flowcharts}
+
+Flowchart: a diagram which represents an algorithm. Basic elements of flowcharts:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\node (process) [process] {Process};
+		\node (function) [process, below=of process]
+		{\underline{Function}};
+		\node (start) [goal, right=of process] {Start};
+		\node (stop) [goal, below=of start] {Stop};
+		\node (decision) [decision, right=of start] {Decision};
+	\end{tikzpicture}
+\end{figure}
+
+Flowcharts begin with the \textit{Start} element and end with the
+\textit{Stop} element. Arrows are used to show precendence:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\node (start) [goal] {Start};
+		\node (process) [process, below=of start] {Process};
+		\node (end) [goal, below=of process] {End};
+		
+		\path [line] (start) -- (process);
+		\path [line] (process) -- (end);
+	\end{tikzpicture}
+\end{figure}
+
+Arrows can also be labelled for \textit{Decision} elements:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\node (start) [goal] {Start};
+		\node (decision) [decision, below=of start] {Continue?};
+		\node (process1) [process, right=of decision] {Process 1};
+		\node (process2) [process, below=of process1] {Process 2};
+		\node (stop) [goal, left=of decision] {Stop};
+
+		\path [line] (start) -- (decision);
+		\path [line] (decision) -- node {Yes} (process1);
+		\path [line] (decision) -- node {No} (stop);
+		\path [line] (process1) -- (process2);
+		\path [line] (process2) -| (decision);
+	\end{tikzpicture}
+\end{figure}
+
+As shown above, loops can also be created by linking a \textit{Process}
+element back to a \textit{Decision} element.
+
+The above can be adjusted to use the \textit{Function} element:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\node (start) [goal] {Start};
+		\node (decision) [decision, below=of start] {Continue?};
+		\node (function) [process, below right=of decision]
+		{\underline{Function}};
+		\node (stop) [goal, left=of decision] {Stop};
+		\node (process2) [process, right=of function] {Process 2};
+		\node (process1) [process, above=of process2] {Process 1};
+		\node (functionbody) [process, above=of process1]
+		{\underline{Function}};
+
+		\path [line] (start) -- (decision);
+		\path [line] (decision) -| node {Yes} (function);
+		\path [line] (decision) -- node {No} (stop);
+		\path [line] (function) -| (decision);
+		\path [line] (functionbody) -- (process1);
+		\path [line] (process1) -- (process2);
+	\end{tikzpicture}
+\end{figure}
+
+\subsection{Pseudocode}
+
+Pseudocode: a "made up" language meant as a middle point between actual
+programming languages and natural language. Uses the following keywords:
+
+\begin{itemize}
+	\item{\texttt{START} and \texttt{STOP}: start and stop.}
+	\item{\texttt{While} and \texttt{For}: loops.}
+	\item{\texttt{If}, \texttt{Else if} and \texttt{Else}: conditionals.}
+	\item{\texttt{Function}: function statements.}
+\end{itemize}
+
+Also uses the following rules:
+
+\begin{itemize}
+	\item{Control statements are followed by a colon.}
+	\item{Blocks of code that are part of a control statement are
+		indented.}
+	\item{Function calls are underlined.}
+	\item{\texttt{\textit{\#}} is used for comments.}
+\end{itemize}
+
+The following code snippet demonstrates an algorithm that might be used in a
+bar to prepare drinks:
+
+\begin{lstlisting}[language=pseudo]
+Function(Make drink):
+	If drink is martini:
+		Make martini.
+	Else if drink is beer:
+		Get beer from fridge.
+Function(Main):
+	While there is another customer:
+		Ask customer what drink they would like.
+		%\underline{Make drink}% as requested.
+		Give customer their requested drink.
+		Charge customer for their drink.
+
+START
+%\underline{Main}%
+STOP
+\end{lstlisting}
+
+\subsection{Python}
+
+Python: a high level, general purpose, interpreted, dynamically typed
+programming language.
+
+High level language: abstracted away from lower level languages (C/C++,
+Assembly, and machine code). The layers of abstraction used depends on the
+specific function that is in the program.
+
+General purpose language: programming language which can be used for a
+variety of purposes and situations.
+
+Interpreted language: programming language which is run line by line. Each
+line is interepreted by an interepreter, which is required to run the
+language. See also compiled language.
+
+Compiled language: programming language which must be compiled before it can
+be run. Requires a compiler to convert the source code to machine code. See
+also interpreted language.
+
+Statically typed language: language where the variable type must be specified
+in the source code.
+
+Dynamically typed language: language where the variable type is checked during
+runtime rather than when it is compiled.
 
 \end{document}
