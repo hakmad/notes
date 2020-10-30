@@ -1,5 +1,9 @@
 \documentclass[a4paper]{report}
 
+\makeatletter
+\renewcommand{\@chapapp}{Week}
+\makeatother
+
 \usepackage[margin=2cm]{geometry}
 \usepackage{parskip}
 
@@ -17,7 +21,9 @@ draw=black]
 
 \usepackage{listings}
 
-\lstset{basicstyle=\ttfamily}
+\lstset{
+	basicstyle=\ttfamily,
+}
 \lstdefinelanguage{pseudo}{
 	morekeywords={while, if, else, for, function, return, start, stop},
 	sensitive=false,
@@ -37,9 +43,7 @@ draw=black]
 
 \tableofcontents
 
-\chapter{Week 1}
-
-Problem solving with code.
+\chapter{Problem solving with code}
 
 \section{Notes}
 
@@ -227,5 +231,100 @@ in the source code.
 
 Dynamically typed language: language where the variable type is checked during
 runtime rather than when it is compiled.
+
+Python can be run in 2 different modes:
+
+\begin{itemize}
+	\item{Interactive mode: the user is provided with a prompt (usually
+		\texttt{>>>}) to input statements. These statements are
+		evaluated and the results are printed to the screen. Useful
+		for testing Python features and viewing documentation.}
+	\item{Script mode: the user provides Python with a script that is then
+		run by Python. The interpreter runs through the script,
+		interpreting each line and performing relevant actions. Useful
+		for running actual code.}
+\end{itemize}
+
+\chapter{Programs and variables}
+
+\section{Notes}
+
+\subsection{Variables}
+
+Variable: atomic piece of data that is used in a program. Each variable has a
+unique identifier and a type.
+
+Identifier: name of a variable. Should relate to what the variable is (for
+example, a variable which stores the length of an object might have identifier
+\texttt{length}.)
+
+Type: type of data. Examples include integer, float, string, character, and
+many others. A variables type dictates how operations that are performed on
+that variable behave.
+
+In Python, variables are created when you assign a value to an identifier:
+
+\begin{lstlisting}[language=Python]
+identifier = expression
+\end{lstlisting}
+
+The expression on the right of is evaluated, and that value is assigned to
+the identifier. The variable has now been created, and can be used in other
+parts of the program:
+
+\begin{lstlisting}[language=Python]
+>>> a = 5
+>>> print(a)
+5
+>>> print(a + 2)
+7
+\end{lstlisting}
+
+If the value of the variable needs to be changed, it must be reassigned using
+the same notation as above:
+
+\begin{lstlisting}[language=Python]
+>>> b = 9
+>>> print(b - 4)
+5
+>>> b = b - 5
+>>> b
+4
+\end{lstlisting}
+
+It is important to note that the equals symbol in Python is the assignment
+operator.
+
+Literal: piece of data that doesn't need to be evaluated. In the code
+above, \texttt{a = 5} and \texttt{b = 9} are examples of literals being
+assigned to variables.
+
+Expression: computable product that can be evaluated. In the code above,
+\texttt{b = b - 5} is an example of an expression - \texttt{b - 5} has to be
+evaluated by the interpreter, and then the result is assigned to \texttt{b}.
+
+\subsection{Types}
+
+Variables can have different types. The built-in Python types include:
+
+\begin{itemize}
+	\item{\texttt{bool}: \texttt{True} or \texttt{False}.}
+	\item{\texttt{int}: integer numbers (such as \texttt{1, -2, 4096}).}
+	\item{\texttt{float}: floating point numbers (such as \texttt{10.25,
+		-7.0, 3.141592653589793}).}
+	\item{\texttt{str}: strings (such as \texttt{"Hello", "world",
+		"Goodbye 'world'"}).}
+\end{itemize}
+
+There are more, however these are the main types that are used in everday
+programming. Different types have different operations that can be performed
+on them, for example:
+
+\begin{itemize}
+	\item{\texttt{2.5 + 5} evaluates to \texttt{7.5}, while \texttt{"2.5"
+		+ "five"} evaluates to \texttt{"2.5five"}.}
+	\item{\texttt{2.5 * 3} evaluates to \texttt{7.5}, while
+		\texttt{"Hello" * 3} evaluates to \texttt{"HelloHelloHello"}.}
+\end{itemize}
 
 \end{document}
