@@ -1,7 +1,35 @@
 \documentclass[a4paper]{report}
 
+\makeatletter
+\renewcommand{\@chapapp}{Week}
+\makeatother
+
 \usepackage[margin=2cm]{geometry}
 \usepackage{parskip}
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows, shapes.geometric, positioning}
+\tikzset{node distance=1cm, auto}
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm,
+minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, rounded corners, minimum width=3cm,
+minimum height=3cm, text centered, draw=black]
+\tikzstyle{goal} = [draw, ellipse, minimum width=3cm, minimum height=1cm,
+draw=black]
+\tikzstyle{line} = [draw, -latex']
+
+\usepackage{listings}
+
+\lstset{
+        basicstyle=\ttfamily,
+}
+\lstdefinelanguage{pseudo}{
+        morekeywords={while, if, else, for, function, return, start, stop},
+        sensitive=false,
+        morecomment=[l]{\#},
+        escapechar=\%
+}
 
 \begin{document}
 
@@ -12,5 +40,7 @@
 	\vspace{0.5cm}
 	\large{ECM1413}
 \end{titlepage}
+
+\tableofcontents
 
 \end{document}
