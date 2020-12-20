@@ -1,10 +1,11 @@
-# LaTeX files
+# Ignore extra LaTeX files.
 *.aux
 *.log
 *.toc
 
-# All PDF files...
+# Ignore all PDF files...
 *.pdf
 
-# ...except notes
+# ...except notes and the template files.
 !notes.pdf
+!template.pdf
