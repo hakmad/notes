@@ -1,14 +1,15 @@
 \documentclass[a4paper,oneside]{report}
 
 \renewcommand{\chaptername}{Week}
+\setcounter{tocdepth}{3}
 
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{parskip}
 
+\usepackage{gensymb}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
-
-\usepackage{pgfplots}
 
 \usepackage{listings}
 \lstset{
@@ -24,6 +25,8 @@
 	minimum width=1cm]
 \tikzstyle{decision} = [draw, diamond, minimum height=1cm, minimum width=2cm]
 \tikzstyle{line} = [draw, -latex']
+
+\usepackage{pgfplots}
 
 \begin{document}
 
@@ -48,6 +51,8 @@
 
 \subsection{Asynchronous Videos}
 
+\subsubsection{Real Coordinate space}
+
 We have previously seen that graphs can be formed using a set of axis, for
 example the 2 dimensional coordinate system requires a pair of perpendicular
 axis which share a single unit of length across them. Typically the horizontal
@@ -63,7 +68,6 @@ from that. The following graph displays some coordinates:
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[axis y line=center, axis x line=center,
-			xtick={-5,-4,...,5}, ytick={-5,-4,...,5},
 			xmin=-5.5, xmax=5.5, ymin=-5.5, ymax=5.5,
 			xlabel=\( x \), ylabel=\( y \)]
 			\addplot[mark=*] coordinates {(0, 0)};
@@ -85,15 +89,20 @@ is an example of the real coordinate space of dimension 2, also known as
 \( \mathbb{R}^n \), and the coordinates on this space are an ordered tuple
 are given by \( (x_1, x_2, x_3, \dots, x_n) \).
 
+\subsubsection{Introduction to Vectors}
+
 Let the coordinate \( P = (7, -4) \) and the coordinate \( Q = (-3, 6) \). We
 can find a vector \( \overrightarrow{PQ} \) by doing \( P - Q \) element-wise,
 that is \( 7 - -3 = 10 \) and \( -4 - 6 = -10 \). The vector
 \( \overrightarrow{PQ} = (10, -10) \) where the first number defines how far
-to move along the \( x \)-axis and the second how far to move along the
-\( y \)-axis. This is similar to the syntax used for coordinates, however
-unlike coordinates this is not limited to the axis. You can think of a vector
-as being instructions of how to move between a particular set of points, or
-alternatively how to move in a well defined way. Some important vectors are:
+to move along the \( x \)-axis starting from the \( x \)-coordinate of \( P \)
+and the second how far to move along the \( y \)-axis from the
+\( y \)-coordinate of \( P \). This is similar to the syntax used for
+coordinates, however unlike coordinates this is not limited to the axis. You
+can think of a vector as being instructions of how to move between a
+particular set of points, or alternatively how to move in a well defined way
+from an arbritrary point. Both kinds of movement are important in linear
+algebra. Some important vectors are:
 
 \begin{itemize}
 	\item{Unit vectors: these are vectors whose norm is equivalent to
@@ -111,9 +120,17 @@ alternatively how to move in a well defined way. Some important vectors are:
 		provided they are not paralell or zero vectors. All the other
 		vectors in \( \mathbb{R}^2 \) can then be defined as multiples
 		of these vectors and so every point in \( \mathbb{R}^2 \) can
-		be reached.}
+		be reached. These may also be referred to as the standard
+		unit vectors.}
 	\item{Zero vectors: these are vectors whose norm is 0, and so all its
-		components are also 0.}
+		components are also 0. For example:
+		
+		\[ \overrightarrow{v} = \begin{pmatrix}
+			0 \\
+			0 \\
+		\end{pmatrix} \]
+
+		Is an example of a zero vector.}
 	\item{\( \overrightarrow{OA} \): recall that \( O \) is used to refer
 		to the origin of a given coordinate space. Let \( A \) be a
 		coordinate in the coordinate space. The vector
@@ -124,6 +141,8 @@ alternatively how to move in a well defined way. Some important vectors are:
 Generally speaking, vectors are often referred to with an arrow overhead,
 for example \( \overrightarrow{a} = (1, 3, -4) \). The components/elements of
 a vector are referred to using subscripts, for example \( a_2 = 3\).
+
+\subsubsection{Unit Vectors and Norms}
 
 Recall unit vectors, these are vectors whose norm is 1. The norm of a vector
 refers to its length/magnitude. To find the norm of a vector
@@ -143,8 +162,8 @@ norm:
 \[ \sqrt{ \frac{3}{5}^2 + \frac{4}{5}^2 } = 1 \]
 
 Technically, there are many kinds of norm. This specific kind is called the
-\textit{Euclidian norm}, and generally if a norm is mentioned without some
-prefix this is the norm that is being referred to.
+Euclidian norm, and generally if a norm is mentioned without some prefix then
+this is the norm that is being referred to.
 
 Some important properties of a norm:
 
@@ -164,7 +183,1034 @@ Some important properties of a norm:
 		the reverse triangle inequality.}
 \end{itemize}
 
-Still need to add notes for other videos, this is just the first one.
+The norm of a vector may have many different equivalent names, including
+length and magnitude.
+
+Before we move on, we should talk about the standard unit vectors. Recall
+basis vectors: these are vectors with which we can describe movement in the
+entire real coordinate space for that particular dimension. The standard unit
+vectors (also known as canonical vectors) are a set of unit basis vectors that
+are used to describe movement in the direction of each of the axis. For
+example, in \( \mathbb{R}^2 \), the standard unit vectors are: \( \hat{i} =
+(1, 0) \) for movement in the \( x \) direction and \( \hat{j} = (0, 1) \) for
+movement in the \( y \) direction. The vector \( \overrightarrow{v} =
+(a, b) \) can therefore be described as \( \overrightarrow{v} = a\hat{i} +
+b\hat{j} \). This principle can be expanded to higher dimensions, for example
+in \( \mathbb{R}^3 \) we have \( \hat{i} = (1, 0, 0) \), \( \hat{j} =
+(0, 1, 0) \) and \( \hat{k} = (0, 0, 1) \) for movement in the \( x \), \( y \)
+and \( z \) directions.
+
+\subsubsection{Vector Arithmetic}
+
+Vectors can be scaled, that is we can increase and decrease the magnitude of a
+vector by multiplying a vector by a scalar. We do this by multiply each
+component of the vector by the given scalar. This is done as follows:
+
+\[ \lambda \times \begin{pmatrix}
+	v_1 \\
+	v_2 \\
+	\vdots \\
+	v_n \\
+\end{pmatrix} = \begin{pmatrix}
+	\lambda v_1 \\
+	\lambda v_2 \\
+	\vdots \\
+	\lambda v_n \\
+\end{pmatrix} \]
+
+For example:
+
+\[ 2 \times \begin{pmatrix}
+	4 \\
+	6 \\
+\end{pmatrix} = \begin{pmatrix}
+	8 \\
+	12 \\
+\end{pmatrix} \]
+
+\[ -1 \times \begin{pmatrix}
+	4 \\
+	6 \\
+\end{pmatrix} = \begin{pmatrix}
+	-4 \\
+	-6 \\
+\end{pmatrix} \]
+
+\[ \frac{1}{2} \times \begin{pmatrix}
+	4 \\
+	6 \\
+\end{pmatrix} = \begin{pmatrix}
+	2 \\
+	3 \\
+\end{pmatrix} \]
+
+The graphical representation of the above is as follows:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=center, axis x line=center,
+			xmin=-15.5, xmax=15.5, ymin=-15.5, ymax=15.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=4, v=6}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=8, v=12}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-4, v=-6}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=2, v=3}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Scaled vectors
+\end{figure}
+
+As can be seen, there are 6 cases for some given scalar \( \lambda \):
+
+\begin{itemize}
+	\item{\( \lambda > 1 \): the vectors magnitude will be increased (it
+		gets bigger).}
+	\item{\( \lambda = 1 \): the vector is unchanged.}
+	\item{\( 0 < \lambda < 1 \): the vectors magnitude will be decreased
+		(it shrinks).}
+	\item{\( -1 < \lambda < 0 \): the vectors direction is reversed and
+		its magnitude decreased (it flips and shrinks).}
+	\item{\( \lambda = -1 \): the vectors direction is reversed.}
+	\item{\( \lambda < -1\): the vectors direction is reversed and
+		its magnitude increased (it flips and gets bigger).}
+\end{itemize}
+
+Besides scaling vectors, we can also add and subtract vectors. We do this by
+adding or subtracting component-wise. This is done as follows:
+
+\[ \begin{pmatrix}
+	v_1 \\
+	v_2 \\
+	\vdots \\
+	v_n \\
+\end{pmatrix} + \begin{pmatrix}
+	u_1 \\
+	u_2 \\
+	\vdots \\
+	u_n \\
+\end{pmatrix} = \begin{pmatrix}
+	v_1 + u_1 \\
+	v_2 + u_2 \\
+	\vdots \\
+	v_n + u_n \\
+\end{pmatrix} \]
+
+For example:
+
+\[ \begin{pmatrix}
+	1 \\
+	-3 \\
+\end{pmatrix} +
+\begin{pmatrix}
+	-2 \\
+	-4 \\
+\end{pmatrix} = \begin{pmatrix}
+	-1 \\
+	-7 \\
+\end{pmatrix} \]
+
+\[ \begin{pmatrix}
+	1 \\
+	2 \\
+\end{pmatrix} -
+\begin{pmatrix}
+	6 \\
+	-3 \\
+\end{pmatrix} = \begin{pmatrix}
+	-5 \\
+	5 \\
+\end{pmatrix} \]
+
+The graphical representation of the above is as follows:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=center, axis x line=center,
+			xmin=-10.5, xmax=10.5, ymin=-10.5, ymax=10.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=1, v=-3}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-2, v=-4}, -latex']
+			coordinates {(1, -3)};
+			\addplot[quiver={u=-1, v=-7}, -latex']
+			coordinates {(0, 0)};
+
+			\addplot[quiver={u=1, v=2}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-6, v=3}, -latex']
+			coordinates {(1, 2)};
+			\addplot[quiver={u=-5, v=5}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Sum of vectors
+\end{figure}
+
+Notice that in the case of the second example, the direction of the second
+vector has been reversed (as per the discussion about scaling vectors
+previously). Also note that 2 vectors can only be added or subtracted if they
+are conformable, that is both vectors are of the same dimension. You cannot
+add a vector of dimension 3 to one of dimension 2. One final note: vector
+addition is commutative, that is:
+
+\[ \overrightarrow{u} + \overrightarrow{v} = \overrightarrow{v} +
+\overrightarrow{u} \]
+
+This can be demonstrated by swapping the order in which the examples above
+are laid out - you should find that you still end up at the same vector.
+Vector addition is also associative, that is:
+
+\[ (\overrightarrow{u} + \overrightarrow{v}) + \overrightarrow{w} =
+\overrightarrow{u} + (\overrightarrow{v} + \overrightarrow{w}) \]
+
+This can be demonstrated in a similar manner to the above: if you were
+to graph this with any 3 vectors you should find that it doesn't matter
+in which order you add the vectors, you will always end up at the same
+vector.
+
+There are other vector operations, namely the scalar product and the vector
+product. These will be covered seperately.
+
+\subsubsection{Scalar Product}
+
+The scalar product (also known as the dot product because the \( \cdot \)
+character is used to denote it) has two mathematical definitions. The first
+is as follows:
+
+\[ \overrightarrow{u} \cdot \overrightarrow{v} = \displaystyle\sum_{i=1}^{n}
+u_i v_i \]
+
+Where \( \overrightarrow{u} \) and \( \overrightarrow{v} \) are the vectors
+for which we are taking the dot product and \( n \) is the dimension of these
+vectors (note that both vectors must have the same dimension in order for this
+operation to work). This is known as the algebraic definition. For example,
+to find the dot product of \( \overrightarrow{u} = (1, -4, 3) \) and
+\( \overrightarrow{v} = (-7, 8, 0) \), we do:
+
+\[ \begin{pmatrix}
+	1 \\
+	-4 \\
+	3 \\
+\end{pmatrix} \cdot \begin{pmatrix}
+	-7 \\
+	8 \\
+	0 \\
+\end{pmatrix} = (1 \times -7) + (-4 \times 8) + (3 \times 0) = -39 \]
+
+
+Before we describe the second definition (known as the geometric definition),
+let us first consider 2 vectors whose tails are located on the same point:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=center, axis x line=center,
+			xmin=-8.5, xmax=8.5, ymin=-8.5, ymax=8.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=3, v=4}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-6, v=-3}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	2 vectors in space
+\end{figure}
+
+Consider the angle between these 2 vectors, we can denote this angle by
+\( \theta \). Imagine taking one of the vectors and creating a number line
+from it whose 0 starts at the tail of the vector and increases positively
+in the direction the vector is pointing. Then, take the other vector and
+project it onto this new line. Finally, multiply the lengths of the vectors
+along this line by each other to find their scalar product.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=center, axis x line=center,
+			xmin=-8.5, xmax=8.5, ymin=-8.5, ymax=8.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=3, v=4}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-6, v=-3}, -latex']
+			coordinates {(0, 0)};
+
+			\addplot[mark=none]{4/3 * x};
+			\addplot[quiver={u=-2.4,v=1.8}, dashed]
+			coordinates {(-3.6, -4.8)};
+			\addplot[quiver={u=-3.6, v=-4.8}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Dot product
+\end{figure}
+
+In the example above, we had 2 vectors: \( \overrightarrow{u} = (3, 4) \) and
+\( \overrightarrow{v} = (-6, -3) \). We can choose either of these vectors, it
+doesn't make a difference. \( \overrightarrow{u} \) has length 5, and we
+project \( \overrightarrow{v} \) onto the imaginary line that we created. The
+length of this line can be calculated from either the coordinates or you can
+use \( | \overrightarrow{v} | \cos{\theta} \), which gives length 6. As the
+projection of \( \overrightarrow{v} \) is pointing in the opposite direction
+of \( \overrightarrow{v} \), we do \( 5 \times -6 \) to get a dot product of
+\( -30 \). The second option gives rise to the second definition of the dot
+product:
+
+\[ \overrightarrow{u} \cdot \overrightarrow{v} =
+| \overrightarrow{u} | | \overrightarrow{v} | \cos{\theta} \]
+
+We can use this result to find the angle between 2 vectors, for example to
+find the angle between \( \overrightarrow{u} = (-3, 4, -5) \) and
+\( \overrightarrow{v} = (8, 1, -5) \):
+
+\[ \overrightarrow{u} \cdot \overrightarrow{v} = (-3 \times 8) + (4 \times 1)
++ (-5 \times -5) = 5 \]
+
+\[ | \overrightarrow{u} | | \overrightarrow{v} | = \sqrt{50} \times \sqrt{90}
+= \sqrt{4500} = 30 \sqrt{5} \]
+
+\[ \cos{\theta} = \frac{\overrightarrow{u} \cdot \overrightarrow{v}}
+{| \overrightarrow{u} | | \overrightarrow{v} |} = \frac{5}{30 \sqrt{5}} =
+\frac{\sqrt{5}}{30} \]
+
+\[ \theta = \arccos{\frac{\sqrt{5}}{30}} \approx 85.73 \degree \]
+
+There are some important consequences of this:
+
+\begin{itemize}
+	\item{\( \overrightarrow{u} \cdot \overrightarrow{v} > 0 \): both
+		vectors are pointing in the same direction.}
+	\item{\( \overrightarrow{u} \cdot \overrightarrow{v} = 0 \): both
+		vectors are perpendicular.}
+	\item{\( \overrightarrow{u} \cdot \overrightarrow{v} < 0 \): both
+		vectors are pointing in opposite directions.}
+\end{itemize}
+
+This is particularly useful in coordinate spaces greater than
+\( \mathbb{R}^2 \) where it may not be obvious if 2 vectors are pointing in
+the same direction or even what the angle between 2 vectors actually is.
+
+The dot product is commutative: that is:
+
+\[ \overrightarrow{u} \cdot \overrightarrow{v} = \overrightarrow{v} \cdot
+\overrightarrow{v} \]
+
+This should be obvious from both definitions of the dot product, given
+that we use multiplication and addition in them (which are both associative).
+The dot product, however, is not associative, as the dot product returns a
+scalar, and the dot product between a scalar and a vector is not defined.
+
+It should be emphasised that the result of the dot product is a scalar, that
+is, taking the scalar product of 2 vectors will result in a number, not a
+vector. This is the reason the dot product is synonymously called the scalar
+product.
+
+\subsubsection{Transformations with Vectors}
+
+The last topic to cover related purely to vectors are transformations to do
+with vectors. There are 3 main transformations:
+
+\begin{itemize}
+	\item{Translation: moving a vector from some position \( P \) to a
+		new position \( P' \).}
+	\item{Scaling: scaling a vector around the origin with some scale
+		factor \( \lambda \).}
+	\item{Rotation: rotating the direction of a vector about the origin
+		by some angle \( \theta \).}
+\end{itemize}
+
+Recall vector arithmetic, in particular vector addition and vector
+multiplication by a scalar. These are, in essence, the algebraic perspective
+of vector translation and vector scaling (respectively). As they have already
+been covered previously, rotation is given the focus here.
+
+When rotating a vector, we typically place its tail at the origin and rotate
+it anticlockwise by some angle \( \theta \) with respect to the positive
+\( x \)-axis (note in this context we assume that the vectors are in
+\( \mathbb{R}^2 \), there are other solutions for higher dimensions but they
+are not covered here). Assuming we have some vector \( \overrightarrow{v} \),
+the resulting vector \( \overrightarrow{v}' \) is given by the following:
+
+\[ \overrightarrow{v}' = \begin{pmatrix}
+	v_x \cos{\theta} - v_y \sin{\theta} \\
+	v_x \sin{\theta} + v_y \cos{\theta} \\
+\end{pmatrix} \]
+
+Where \( v_x \) and \( v_y \) are the \( x \) and \( y \) components of
+\( \overrightarrow{v} \). For example, to rotate the vector
+\( \overrightarrow{v} = (3, 4) \) by 30\degree, we do:
+
+\[ \overrightarrow{v}' = \begin{pmatrix}
+	3 \cos{30\degree} - 4 \sin{30\degree} \\
+	3 \sin{30\degree} + 4 \cos{30\degree} \\
+\end{pmatrix} = \begin{pmatrix}
+	\frac{3 \sqrt{2}}{2} - 2 \\
+	\frac{3}{2} + 2 \sqrt{3} \\
+\end{pmatrix} = \begin{pmatrix}
+	\frac{-4 + 3 \sqrt{3}}{2} \\
+	\frac{3 + 4 \sqrt{3}}{2} \\
+\end{pmatrix} \]
+
+The geometric interpretation of the above is as follows:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=left, axis x line=left,
+			xmin=0, xmax=6.5, ymin=0, ymax=6.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=3, v=4}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=0.598, v=4.964}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Rotation with vectors
+\end{figure}
+
+One final situation and problem to consider is rotation about an arbitrary
+point. Fortunately the solution is relatively simple. Let's say that we
+want to rotate vector \( \overrightarrow{v} \) around some point \( P \) by
+some angle \( \theta \). We create a new vector \( \overrightarrow{t} =
+\overrightarrow{OP} \) and do the following:
+
+\[ \overrightarrow{v_t} = \overrightarrow{v} - \overrightarrow{t} \]
+
+We then perform the rotation. After the rotation is performed, we do:
+
+\[ \overrightarrow{v}' = \overrightarrow{v_{r,t}} + \overrightarrow{t} \]
+
+Essentially, we are translating the entire coordinate space to shift the
+origin to \( P \). We then perform the rotation, and afterwards shift the
+entire coordinate space back to where it should be. This is method can
+also be used for scaling about an angle, simply replace the operation of
+rotation with the operation of vector multiplication with a scalar.
+
+\subsubsection{Introduction to Matrices}
+
+A matrix is a rectangular array of elements that are arranged in table-like
+structure. A matrix has a fixed number of rows and columns, and each cell
+in the matrix is occupied by a number, expression or variable. For example:
+
+\[ A_{m,n} = \begin{pmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix} \]
+
+The above matrix is known as an \( m \times n \) matrix: it has \( m \) rows
+and \( n \) columns. Each element is referred to by a subscript with the first
+part of the subscript referring to its row and the second part referring to
+its column. Some examples of matrices are as follows:
+
+\[ A_{2, 3} = \begin{pmatrix}
+	2 & 5 & -7 \\
+	3 & 0 & 1 \\
+\end{pmatrix}, B_{2, 2} = \begin{pmatrix}
+	1 & 0 \\
+	0 & 2 \\
+\end{pmatrix}, C_{2, 1} = \begin{pmatrix}
+	3 \\
+	4 \\
+\end{pmatrix} \]
+
+Some important kinds of matrices are described below:
+
+\begin{itemize}
+	\item{Square matrices: these are matrices where the number of rows
+		is equal to the number of columns, that is \( m = n \). These
+		are particularly important in linear transformations. They
+		are also the only kinds of matrices which are conformable for
+		inversion and exponentiation.}
+	\item{Identity matrices: these are square matrices where the diagonal
+		from the top left to the bottom right consists of 1s and all
+		other elements consists of 0s. For example:
+		
+		\[ I_2 = \begin{pmatrix}
+			1 & 0 \\
+			0 & 1 \\
+		\end{pmatrix} \]
+
+		These are useful in matrix multiplication as they leave
+		matrices completely unchanged. and can be thought of as the
+		number 1 for matrices. They are often denoted with the letter
+		\( I \) and sometimes have a subscript denoting their size.}
+	\item{Zero matrices: these are matrices where all the elements in the
+		matrix are 0. Similar to the identity matrix they can be
+		thought of as the number 0 for matrices, however unlike the
+		identity matrix they are not necessarily square. They are
+		typically denoted with the letter \( Z \) and may have a
+		subscript denoting their rows and columns.}
+	\item{Vectors: you can think of a vector as being a special case of
+		a matrix where the number of columns is limited to 1 and the
+		number of rows is the dimension of the vector. This mindset
+		is useful when applying matrices to vectors which is common
+		in linear algebra.}
+\end{itemize}
+
+There are 3 main unary operations that can occur on a single matrix:
+
+\begin{itemize}
+	\item{Transposing a matrix.}
+	\item{Finding the inverse of a matrix such that \( AA^{-1} = I \)
+		(applies to square matrices only).}
+	\item{Finding the determinant of a matrix (applies to square matrices
+		only).}
+\end{itemize}
+
+The second 2 will be discussed at a later time, however it is important to
+consider the transpose of a matrix as it is very useful for linear
+transformations and plays an important role in the latter 2 operations.
+
+The transpose of a given matrix is typically denoted with a superscripted
+\( T \), for example the transpose of some matrix \( A \) is \( A^T \). To find
+the transpose of a matrix, we perform the following:
+
+\begin{enumerate}
+	\item{Write the rows of \( A \) as the columns of \( A^T \).}
+	\item{Write the columns of \( A \) as the rows of \( A^T \).}
+\end{enumerate}
+
+For example:
+
+\[ A = \begin{pmatrix}
+	1 & 2 \\
+	3 & 4 \\
+\end{pmatrix}, A^T = \begin{pmatrix}
+	1 & 3 \\
+	2 & 4 \\
+\end{pmatrix} \]
+
+Transposes can also be applied to non-square matrices, for example:
+
+\[ B = \begin{pmatrix}
+	2 & 3 & 5 \\
+	-1 & 4 & 9 \\
+\end{pmatrix}, B^T = \begin{pmatrix}
+	2 & -1 \\
+	3 & 4 \\
+	5 & 9 \\
+\end{pmatrix} \]
+
+This operation will come in handy later so it is important to remember it.
+
+\subsubsection{Matrix Arithmetic}
+
+Matrices can be scaled, that is it is possible to scale up a matrix by
+multiplying a matrix by a scalar. We do this by multiplying all the elements
+in the matrix by the given scalar. This is done as follows:
+
+\[ \lambda \times \begin{pmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix} = \begin{pmatrix}
+	\lambda a_{1,1} & \lambda a_{1,2} & \cdots & \lambda a_{1,n} \\
+	\lambda a_{2,1} & \lambda a_{2,2} & \cdots & \lambda a_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	\lambda a_{m,1} & \lambda a_{m,2} & \cdots & \lambda a_{m,n}
+\end{pmatrix} \]
+
+For example:
+
+\[ 3 \times \begin{pmatrix}
+	-1 & 3 & 5 \\
+	2 & -4 & 8 \\
+\end{pmatrix} = \begin{pmatrix}
+	-3 & 0 & 15 \\
+	6 & -12 & 24 \\
+\end{pmatrix} \]
+
+Matrices can also be added to each other. The sum of 2 matrices only exists
+if both matrices are of the same dimension, that is, both matrices have the
+same number of rows and the same number of columns. The sum of 2 matrices can
+be found as follows:
+
+\[ \begin{pmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix} + \begin{pmatrix}
+	b_{1,1} & b_{1,2} & \cdots & b_{1,n} \\
+	b_{2,1} & b_{2,2} & \cdots & b_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	b_{m,1} & b_{m,2} & \cdots & b_{m,n}
+\end{pmatrix} = \begin{pmatrix}
+	(a + b)_{1,1} & (a + b)_{1,2} & \cdots & (a + b)_{1,n} \\
+	(a + b)_{2,1} & (a + b)_{2,2} & \cdots & (a + b)_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	(a + b)_{m,1} & (a + b)_{m,2} & \cdots & (a + b)_{m,n}
+\end{pmatrix} \]
+
+For example:
+
+\[ \begin{pmatrix}
+	2 & 0 \\
+	3 & 4 \\
+\end{pmatrix} + \begin{pmatrix}
+	-1 & 3 \\
+	4 & 4 \\
+\end{pmatrix} = \begin{pmatrix}
+	1 & 3 \\
+	7 & 8 \\
+\end{pmatrix} \]
+
+To subtract to matrices, we simply multiply the second matrix by the scalar
+\( -1 \) and then find the sum of the two matrices. For example:
+
+\[ \begin{pmatrix}
+	7 & 3 \\
+	1 & 0 \\
+\end{pmatrix} - \begin{pmatrix}
+	4 & 3 \\
+	-1 & 5 \\
+\end{pmatrix} = \begin{pmatrix}
+	7 & 3 \\
+	1 & 0 \\
+\end{pmatrix} + \begin{pmatrix}
+	-4 & -3 \\
+	1 & -5 \\
+\end{pmatrix} = \begin{pmatrix}
+	3 & 0 \\
+	2 & -5 \\
+\end{pmatrix} \]
+
+Matrix addition is commutative, that is:
+
+\[ A + B = B + A \]
+
+Matrix addition is also associative, that is:
+
+\[ (A + B) + C = A + (B + C) \]
+
+These should be obvious from the underlying operation of addition also being
+commutative and associative, and so matrix addition must also be commutative
+and associative.
+
+The last matrix arithmetic operation to be covered is matrix multiplication.
+Given some matrix \( A \) with dimensions \( m \times n \) and some matrix
+\( B \) with dimensions \( n \times p \) the matrix product \( C = AB \).
+This new matrix has dimensions \( m \times p \). This is done as follows:
+
+\[ A = \begin{pmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix}, B = \begin{pmatrix}
+	b_{1,1} & b_{1,2} & \cdots & b_{1,n} \\
+	b_{2,1} & b_{2,2} & \cdots & b_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	b_{m,1} & b_{m,2} & \cdots & b_{m,n} \\
+\end{pmatrix} \]
+
+\[ C = \begin{pmatrix}
+	c_{1,1} & c_{1,2} & \cdots & c_{1,n} \\
+	c_{2,1} & c_{2,2} & \cdots & c_{2,n} \\
+	\vdots  & \vdots  & \ddots & \vdots  \\
+	c_{m,1} & c_{m,2} & \cdots & c_{m,n}
+\end{pmatrix} \]
+
+Where:
+
+\[ c_{i,j} = a_{i,1}b{1,j} + a_{i,2}b_{2,j} + \dots + a_{i,n}b_{n,j} =
+\displaystyle\sum_{k=1}^n a_{i,k}b_{k,j} \]
+
+For \( i = 1, \dots, m \) and \( j = 1, \dots, p \). For example:
+
+\[ \begin{pmatrix}
+	2 & 3 \\
+	-1 & 4 \\
+\end{pmatrix} \begin{pmatrix}
+	-6 & 5 \\
+	9 & 8 \\
+\end{pmatrix} = \begin{pmatrix}
+	2 \times -6 + 3 \times 9 & 2 \times 5 + 3 \times 8 \\
+	-1 \times -6 + 4 \times 9 & -1 \times 5 + 4 \times 8 \\
+\end{pmatrix} = \begin{pmatrix}
+	15 & 34 \\
+	42 & 27 \\
+\end{pmatrix} \]
+
+\[ \begin{pmatrix}
+	3 & 6 \\
+	-3 & 1 \\
+	4 & -2 \\
+	5 & 7 \\
+\end{pmatrix} \begin{pmatrix}
+	1 & 0 & 8 \\
+	-1 & 3 & 7 \\
+\end{pmatrix} = \begin{pmatrix}
+	3 \times 1 + 6 \times -1 & 3 \times 0 + 6 \times 3 & 3 \times 8 + 6 \times 7 \\
+	-3 \times 1 + 1 \times -1 & -3 \times 0 + 1 \times 3 & -3 \times 8 + 1 \times 7 \\
+	4 \times 1 + -2 \times -1 & 4 \times 0 + -2 \times 3 & 4 \times 8 + -2 \times 7 \\
+	5 \times 1 + 7 \times -1 & 5 \times 0 + 7 \times 3 & 5 \times 8 + 7 \times 7 \\
+\end{pmatrix} = \begin{pmatrix}
+	-9 & 18 & 66 \\
+	2 & 3 & -17 \\
+	-2 & -6 & 18 \\
+	-12 & 21 & 89 \\
+\end{pmatrix} \]
+
+The matrix product of two matrices only exists if the two matrices are
+conformable. More specifically, if you had two matrices \( A \) and \( B \)
+and you wanted to find the matrix product \( AB \), the number of columns in
+\( A \) is equal to the number of rows in \( B \). If this is not the case,
+then the matrix product doesn't exist. If this is the case then the resulting
+matrix will have dimension \( m \times p \) (where \( m \) is the number of
+columns in matrix \( A \) and \( p \) is the number of rows in matrix
+\( B \)).
+
+Matrix multiplication is associative, that is:
+
+\[ (AB) C = A (BC) \]
+
+It should be noted that matrix multiplication is not commutative, that is
+
+\[ AB \neq BA \]
+
+This is especially true when the matrices have different dimensions: if we
+say \( A \) is of dimension \( m \times n \) and \( B \) is of dimension
+\( p \times q \) then \( AB \) is defined with dimensions \( m \times q \)
+(if and only if \( n = p \)) while \( BA \) is defined with dimensions
+\( p \times n \) (if and only if \( m = q \)). In the case of differently
+sized matrices (that is, \( m = q \neq n = p \)) then the resulting matrices
+will have different dimensions and so cannot be equal. The only other case is
+if \( m = q = n = p \), that is both matrices are square with the same
+dimension. Even in this case, there are a variety of examples that show that
+matrix multiplication is not commutative:
+
+\[ A = \begin{pmatrix}
+	2 & 0 \\
+	0 & 0 \\
+\end{pmatrix}, B = \begin{pmatrix}
+	0 & 3 \\
+	0 & 0 \\
+\end{pmatrix} \]
+
+\[ AB = \begin{pmatrix}
+	0 & 6 \\
+	0 & 0 \\
+\end{pmatrix}, BA = \begin{pmatrix}
+	0 & 0 \\
+	0 & 0 \\
+\end{pmatrix} \]
+
+\subsubsection{Transformations with Matrices}
+
+Recall vectors, and that they are a special case of matrices where the number
+of columns is limited to 1 and the number of rows is the dimension of the
+matrix. Consider the following:
+
+\[ A = \begin{pmatrix}
+	1 & 2 \\
+	-1 & 2 \\
+\end{pmatrix}, \overrightarrow{v} = \begin{pmatrix}
+	2 \\
+	3 \\
+\end{pmatrix} \]
+
+\[ \overrightarrow{v}' = A\overrightarrow{v} = \begin{pmatrix}
+	8 \\
+	4 \\
+\end{pmatrix} \]
+
+Consider the geometric interpretation of the above by plotting both
+\( \overrightarrow{v} \) and \( \overrightarrow{v}' \):
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=left, axis x line=left,
+			xmin=0, xmax=10.5, ymin=0, ymax=6.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=2, v=3}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=8, v=4}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Transformations with matrices
+\end{figure}
+
+As can be seen, we have applied the matrix \( A \) to the vector
+\( \overrightarrow{v} \) to create a new vector \( \overrightarrow{v}' \). You
+can therefore consider matrix multiplication between a matrix and a vector as
+applying that matrix to the vector to transform it into a new vector. It is
+possible to describe several different kinds of transformations using matrices
+including:
+
+\begin{itemize}
+	\item{Scaling}
+	\item{Rotation}
+	\item{Shearing}
+\end{itemize}
+
+We do not describe translation using matrices as vectors are more convenient
+for this task.
+
+We already know that we can scale a vector by multiplying it by a scalar. The
+matrix equivalent of this is to multiply the identity matrix by a scalar and
+then multiply that new matrix by the vector you wish to transform. This is
+done as follows:
+
+\[ \begin{pmatrix}
+	\lambda & 0 \\
+	0 & \lambda \\
+\end{pmatrix} \begin{pmatrix}
+	v_x \\
+	v_y \\
+\end{pmatrix} = \begin{pmatrix}
+	\lambda v_x \\
+	\lambda v_y \\
+\end{pmatrix} \]
+
+The value of \( \lambda \) determines the scale factor of the transformation.
+Refer to the list shown earlier to determine the corresponding geometrical
+effect given some value of \( \lambda \).
+
+This transformation can be adjusted to only scale along a specific axis, or
+alternatively to scale differently along different axis. This is done as
+follows:
+
+\[ \begin{pmatrix}
+	\lambda_x & 0 \\
+	0 & \lambda_y \\
+\end{pmatrix} \begin{pmatrix}
+	v_x \\
+	v_y \\
+\end{pmatrix} = \begin{pmatrix}
+	\lambda_x v_x \\
+	\lambda_y v_y \\
+\end{pmatrix} \]
+
+Like before, the value of \( \lambda_x \) and \( \lambda_y \) are the scale
+factor in the \( x \) and \( y \) directions. However if we choose to make
+either of \( \lambda_x \) or \( \lambda_y \) equal to 1, then the
+transformation will only occur in the other direction (provided that the other
+value of \( \lambda \) is not also equal to 1). For example:
+
+\begin{itemize}
+	\item{Scaling in the \( x \) direction only:
+
+\[ \begin{pmatrix}
+	3 & 0 \\
+	0 & 1 \\
+\end{pmatrix} \begin{pmatrix}
+	3 \\
+	4 \\
+\end{pmatrix} = \begin{pmatrix}
+	9 \\
+	4 \\
+\end{pmatrix} \]
+		}
+	\item{Scaling in the \( y \) direction only:
+
+\[ \begin{pmatrix}
+	1 & 0 \\
+	0 & -2 \\
+\end{pmatrix} \begin{pmatrix}
+	3 \\
+	4 \\
+\end{pmatrix} = \begin{pmatrix}
+	3 \\
+	-8 \\
+\end{pmatrix} \]
+		}
+	\item{Scaling seperately in both the \( x \) and \( y \)
+		directions:
+
+\[ \begin{pmatrix}
+	3 & 0 \\
+	0 & -2 \\
+\end{pmatrix} \begin{pmatrix}
+	3 \\
+	4 \\
+\end{pmatrix} = \begin{pmatrix}
+	9 \\
+	-8 \\
+\end{pmatrix} \]
+		}
+	\item{Scaling congruently in both the \( x \) and \( y \) directions:
+
+		\[ \begin{pmatrix}
+			-2 & 0 \\
+			0 & -2 \\
+		\end{pmatrix} \begin{pmatrix}
+			3 \\
+			4 \\
+		\end{pmatrix} = \begin{pmatrix}
+			-6 \\
+			-8 \\
+		\end{pmatrix} \]
+		}
+\end{itemize}
+
+The geometric effects of the above are as follows:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=center, axis x line=center,
+			xmin=-10.5, xmax=10.5, ymin=-10.5, ymax=10.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=3, v=4}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=9, v=4}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=3, v=-8}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=9, v=-8}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=-6, v=-8}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Scaling with matrices
+\end{figure}
+
+Recall the rotation with vectors. We can deduce the rotation matrix from this
+by reverse engineering the rotation vector to give the following
+transformation:
+
+\[ \begin{pmatrix}
+	\cos{\theta} & -\sin{\theta} \\
+	\sin{\theta} & \cos{\theta} \\
+\end{pmatrix} \begin{pmatrix}
+	v_x \\
+	v_y \\
+\end{pmatrix} = \begin{pmatrix}
+	v_x \cos{\theta} - v_y \sin{\theta} \\
+	v_x \sin{\theta} + v_y \cos{\theta} \\
+\end{pmatrix} \]
+
+This transformation behaves in exactly the same way as the original: the
+vector is rotated by some angle \( \theta \) anticlockwise with respect to
+the positive \( x \)-axis. As this has been already described and
+demonstrated earlier, it will not be demonstrated here.
+
+Shearing is a new transformation whereby the one component or coordinate of
+a vector is left unchanged while the other is increased by a multiple of the
+unchanged coordinate. This can be done either paralell to the \( x \)-axis
+(leaving the \( y \) coordinate unchanged) or paralell to the \( y \)-axis
+(leaving the \( x \) coordinate unchanged). This is done as follows:
+
+\begin{itemize}
+	\item{Shear paralell to the \( x \)-axis:
+
+		\[ \begin{pmatrix}
+			1 & \lambda \\
+			0 & 1 \\
+		\end{pmatrix} \begin{pmatrix}
+			v_x \\
+			v_y \\
+		\end{pmatrix} = \begin{pmatrix}
+			v_x + \lambda v_y \\
+			v_y \\
+		\end{pmatrix} \]
+		}
+	\item{Shear paralell to the \( y \)-axis:
+
+		\[ \begin{pmatrix}
+			1 & 0 \\
+			\lambda & 1 \\
+		\end{pmatrix} \begin{pmatrix}
+			v_x \\
+			v_y \\
+		\end{pmatrix} = \begin{pmatrix}
+			v_x \\
+			v_y + \lambda v_x \\
+		\end{pmatrix} \]
+		}
+\end{itemize}
+
+Shearing is often used to 
+
+An example of a shear paralell to the \( x \)-axis is as follows:
+
+\[ \begin{pmatrix}
+	1 & 3 \\
+	0 & 1 \\
+\end{pmatrix} \begin{pmatrix}
+	3 \\
+	2 \\
+\end{pmatrix} = \begin{pmatrix}
+	1 \times 3 + 3 \times 2 \\
+	0 \times 3 + 1 \times 2 \\
+\end{pmatrix} = \begin{pmatrix}
+	9 \\
+	2 \\
+\end{pmatrix} \]
+
+An example of a shear paralell to the \( y \)-axis is as follows:
+
+\[ \begin{pmatrix}
+	1 & 0 \\
+	2 & 1 \\
+\end{pmatrix} \begin{pmatrix}
+	4 \\
+	2 \\
+\end{pmatrix} = \begin{pmatrix}
+	1 \times 4 + 0 \times 2 \\
+	2 \times 4 + 1 \times 2 \\
+\end{pmatrix} = \begin{pmatrix}
+	4 \\
+	10 \\
+\end{pmatrix} \]
+
+The geometric representation of both of the above is as follows:
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[axis y line=left, axis x line=left,
+			xmin=0, xmax=10.5, ymin=0, ymax=10.5,
+			xlabel=\( x \), ylabel=\( y \)]
+			\addplot[quiver={u=3, v=2}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=9, v=2}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=4, v=2}, -latex']
+			coordinates {(0, 0)};
+			\addplot[quiver={u=4, v=10}, -latex']
+			coordinates {(0, 0)};
+		\end{axis}
+	\end{tikzpicture}
+
+	Shears paralell to the \( x \)- and \( y \)- axis
+\end{figure}
+
+The last thing to consider is the idea of performing multiple transformations,
+for example scaling and then rotating. This can be done through matrix
+multiplication: we first multiply the scaling matrix by the vector to get a
+new vector, and then multiply this new vector by the rotation matrix. Matrix
+multiplication has an associative property, therefore we can equivalently
+make a transformation matrix by multiplying the scaling and rotation matrces
+and then multiplying this new matrix by the vector to get a new vector. This
+is done as follows:
+
+\[ \overrightarrow{v}' = SR\overrightarrow{v} \]
+
+It should be noted that while the associative property holds for matrix
+multiplication, the commutative property does not. This means that the order
+of transformations does matter, that is if you reverse the order of
+transformations (rotate and then scale) you will not necessarily end up with
+the same vector.
 
 \subsection{Synchronous Lectures}
 
