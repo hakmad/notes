@@ -323,7 +323,237 @@ cryptographic mechanisms used to secure data. Examples include:
 
 ## 1.3 Given a scenario, analyse potential indicators associated with application attacks
 
+Improper input handling: not correctly handling inputs can lead to several
+issues, from system crashes to privilege escalation to arbitrary code
+execution to leaked data. Input needs to be correctly validated, sanitised,
+filtered and proper encoding/decoding rules must be followed in order to
+prevent input from being abused. Input should be handled appropriately on boht
+the client and server side to ensure that data is not tampered with while in
+transit.
+
+Privilege escalation: an attacker attempts to gain access to higher privileges
+(e.g. unauthenticated to authenticated, standard user to root, etc.). This can
+be done through several methods, including using stolen credentials, social
+engineering, weak/unconfigured credentials, other misconfigurations or using
+malware to attack and gain elevated access to system resources. Privilege
+escalation can be vertical or horizontal:
+
+- Vertical privilege escalation is where an attacker attempts to increase the
+  level of their current privileges, e.g. elevating from a standard user to an
+  administrator.
+- Horizontal privilege escalation is where an attacker attempts to access the
+  privileges of another user account in the same level as them, e.g. accessing
+  user 2's resources while logged in as user 1.
+
+Injection attacks: this is any attack where a program is tricked into
+misinterpreting some code to execute a command. Several types of attack exist,
+including:
+
+- XSS attack
+- SQL injection
+- DLL injection
+- XML injection
+- LDAP injection
+
+Cross-site scripting (XSS): XSS is an injection attack where
+malicious/untrusted scripts are inserted into regular websites. An attacker may
+be able to input some code into a website, and that code is then executed by
+different end users when they visit the site. This attack occurs where user
+input is not validated correctly and allows attackers to insert scripts where
+they should not be able to do so. XSS attacks can be categorised into reflected
+or stored:
+
+- Stored: an attacker creates a script and uploads it to a website (e.g.
+  through some insecure form that does not validate input). The script is then
+  stored on the server and served to new users when they visit the site. The
+  browser has no way of knowing that the script is malicious and executes the
+  code. This is also known as persistent XSS.
+- Reflected: this attack occurs when an application handles HTTP requests in an
+  unsafe manner but does not necessarily store the data. For example, if a user
+  enters some data onto the website and that data is used to create content on
+  the site but is not stored (i.e. searching for an item) then an attacker can
+  create a malicious payload that contains some code to execute. This code can
+  then be used to execute code in the context of a users browser. This is also
+  known as non-persistent XSS as no data is stored on the server.
+
+An attacker can carry out JavaScript XSS attacks by inserting `<script>` tags
+into a HTML form that does not carry out the proper sanitisation or a HTTP
+request which does not correctly handle input. When the form/request is
+submitted, the script is either stored/reflected to another user whose browser
+will then execute the script.
+
+SQL injection (SQLi): Structured Query Language (SQL) is a Domain Specific
+Language (DSL) used to interact with databases. An SQL injection attack occurs
+when an input used to execute a query (e.g. an item to search for on a store)
+is not properly handled and allows an attacker to execute arbitrary queries on
+the server. This attack can then be used to allow an attacker to view data that
+they are not usually able to view, e.g. the usernames/passwords of every user
+in the database. Additionally, an attacker may be able to carry out other
+operations, including deleting or modifying data to get access to a server.
+
+To detect SQL injections, an attacker might try to submit different strings:
+
+- The single quote character `'`.
+- Boolean conditions (e.g. `OR 1=1` and `OR 1=2`).
+
+SQLi typically occurs in the `WHERE` clause of a `SELECT` statement, however
+can also occur in `UPDATE` or `INSERT` statements as well.
+
+SQLi attacks can result in several different consequences depending on the type
+of attack:
+
+- Retrieval of data (e.g. passwords, etc.).
+- Modification of logic (e.g. updating/inserting/deleting unauthorised data,
+  etc.).
+- `UNION` attacks where data from alternative tables might be retrieved.
+- Blind SQLi where the data is not returned in the application response.
+
+DLL injection: Dynamic Link Libraries (DLLs) contain data and programs. These
+are loaded by programs to carry out library functions, and programs using these
+may be vulnerable to DLL injections. An attacker can force a program to load a
+particular DLL by injecting code that causes unintended side effects, including
+reading input information or intercepting system calls. Attackers can
+essentially modify the libraries/code that existing programs load/run to
+execute their own programs.
+
+LDAP injection: Lightweight Directory Access Protocol (LDAP) allows users to
+access and read directories containing information - essentially it allows user
+to read/modify data on a remote system. LDAP injection occurs when a web
+application uses user input to construct LDAP queries but does not properly
+validate them - an attacker can access resources that they may not be
+authorised to access such as passwords or secret data.
+
+XML injection: EXtensible Markup Language (XML) is a markup language used to
+define and store arbitrary data, with a similar syntax to HTML. An XML
+injection occurs when XML input fails to be validated properly - an attacker
+can access sensitive data, modify data, or modify logic in the application. An
+XML injection can occur using the following strings:
+
+- The single quote character `'`.
+- The ampersand character `&`.
+- The XML comment strings `<!--` and `-->`.
+
+Pointer/object dereference: objects in memory typically have a pointer
+associated with them so that they can be referenced. Several vulnerabilities
+might be associated with dereferencing pointers, including:
+
+- Null pointer dereference: if a pointer does not point to a valid location,
+  the program may crash or otherwise exit (if it doesn't previously check
+  whether the pointer is valid or not). Null pointer dereferences typically
+  cause software reliability issues but can also be used to bypass security
+  logic or reveal information about the program.
+- Untrusted pointer dereference: if a pointer is loaded from an untrusted
+  location, an attacker can similarly cause a program to crash or bypass logic.
+  Additionally, an attacker can also modify state variables or execute
+  arbitrary code.
+
+Directory traversal: also known as path traversal, this is a vulnerability
+where an attacker can read arbitrary files on a server. Websites may load
+resources from the local directory by specifying a path to load. An attacker
+can modify the path and use this to load data from other paths. This
+vulnerability is typically carried out by using the `..` string in a path which
+specifies the parent directory of the current directory - an attacker can
+navigate up to the root of the filesystem and then back down to any arbitrary
+file (`/etc/passwd` is a typical target).
+
+Buffer overflows: programs use buffers to store input data. Buffers have fixed
+size, however users can input data that is larger than the size allocated to
+the buffer. When this happens, data that is next to the buffer may be
+overwritten with arbitrary data. Attackers can exploit this and use it to
+deliberately crash programs (e.g. causing denial of service attacks) or execute
+arbitrary code (e.g. launching a shell).
+
+Race condition: a race condition occurs where execution of code/program
+behaviour is dependent on timing of other, external events. An attacker can
+exploit this to bypass checks, elevate or escalate privileges, or access
+certain resources without being authorised to do so.
+
+Time-of-check-to-time-of-use (TOCTOU): this is a race condition caused by
+checking the state of some object and then using that object. The state of the
+resource may change between different checks, causing unauthorised use of the
+object.
+
+Error handling: a website may encounter errors from time to time (e.g. unable
+to access certain resources, etc.). When these errors occur, an error message
+may be displayed which describes the error. These error messages can be
+configured to display different information depending on the use case, for
+example a debug version of the system will display the full error message
+while a user-facing application may display only a simple error message.
+Improperly configuring/handling error messages can lead to vulnerabilities in
+systems, as attackers can infer information about a system that should be kept
+secret. For example: if a user attempts to access a file that they do not have
+permission to access, a message stating "Access Denied" indicates that
+the file exists, while a message stating "File Not Found" indicates that the
+file may not exist. A hostile user can use this to deduce the directory
+structure of a system.
+
+Replay attack: an attacker intercepts communication between two parties
+(on-path/MITM attack) and delays/redirects/repeats certain traffic. Replay
+attacks allow an attacker to deceive other participants in the communication
+into believing the legitimacy of some communication. For example, an attacker
+may try to repeat or delay certain bank transactions to commit fraud.
+
+Session replay attack: an attacker records the "session" of a user and uses
+that to carry out replay attacks.
+
+Integer overflow: this occurs when an arithmetic operation results in a value
+too large to be stored in the allowed space, and thus the value "overflows".
+For example, for an integer with 32 bits of space, the maximum allowed value is
+4,294,967,295. Adding 1 to this value causes the value to overflow. Overflow
+varies depending on the compiler, system, and language, however generally
+causes issues including crashing the program or modifying the value to be
+something else instead of the expected result.
+
+Request forgery: an attacker can forge requests that appear to come from a
+legitimate user but are illegitimate. Two differen types exist:
+
+- Cross-site request forgery: an attacker circumvents the same-origin policy
+    and causes a user to execute actions inadvertantly by clicking on a link.
+    These attacks abuse cookies from a legitimate website and exploit the fact
+    that the browser is trusted by the vulnerable website.
+- Server-side request forgery: an attacker causes a server-side action to
+    occur allowing an attacker to read server configurations or site details.
+
+API attacks: an Application Programming Interface may be vulnerable to attacks,
+allowing an attacker to carry out injection attacks, DoS/DDoS attacks and so
+on.
+
+Resource exhaustion: an attack where a computer resource (e.g. a server or
+application) is deliberately crashed, caused to hang or otherwise interfered
+with which prevents legitimate users from accessing the resources as they are
+exhausted.
+
+Memory leak: programs allocate memory to store dynamic objects. When the
+program completes, it may not properly free the memory, which can cause memory
+leaks. These can cause multiple issues:
+
+- The amount of available memory is reduced so the RAM is exhausted.
+- Other programs may terminate due to inability to allocate memory.
+
+Secure Sockets Layer stripping: an attacker intercepts traffic between a user
+and the server and removes any SSL content from the traffic. This causes the
+server to return an unencrypted version of the page which an attacker can read.
+This is a kind of downgrade attack where an attacker uses MITM techniques to
+change the protocol from HTTPS to HTTP.
+
+Driver manipulation: attackers manipulate/alter the drivers of the system to
+carry out attacks. Two types of driver manipulation attacks exist:
+
+- Shimming: an attacker inserts a layer/shim between the application and OS to
+    manipulate/modify/bypass security features.
+- Refactoring: an attacker modifies the driver itself to create backdoors,
+    bypass controls or create new vulnerabilities.
+
+Pass-the-Hash attack: an attacker obtains the hash of a password (instead of
+the actual password). An attacker can then use password cracking engines to
+crack the password, or can use this to gain access to a resource that accepts a
+hashed version of the password instead of the password itself. This can affect
+single sign-on applications which may use password hashes instead of the actual
+password.
+
 ## 1.4 Given a scenario, analyse potential indicators associated with network attacks
+
+
 
 ## 1.5 Explain different threat actors, vectors, and intelligence sources
 
@@ -332,4 +562,3 @@ cryptographic mechanisms used to secure data. Examples include:
 ## 1.7 Summarise the techniques used in security assessments
 
 ## 1.8 Explain the techniques used in penetration testing
-
