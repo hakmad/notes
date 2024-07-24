@@ -320,14 +320,13 @@ cryptographic mechanisms used to secure data. Examples include:
   communications if the system cannot use a higher version of the encryption
   scheme.
 
-
 ## 1.3 Given a scenario, analyse potential indicators associated with application attacks
 
 Improper input handling: not correctly handling inputs can lead to several
 issues, from system crashes to privilege escalation to arbitrary code
 execution to leaked data. Input needs to be correctly validated, sanitised,
 filtered and proper encoding/decoding rules must be followed in order to
-prevent input from being abused. Input should be handled appropriately on boht
+prevent input from being abused. Input should be handled appropriately on both
 the client and server side to ensure that data is not tampered with while in
 transit.
 
@@ -505,10 +504,10 @@ causes issues including crashing the program or modifying the value to be
 something else instead of the expected result.
 
 Request forgery: an attacker can forge requests that appear to come from a
-legitimate user but are illegitimate. Two differen types exist:
+legitimate user but are illegitimate. Two different types exist:
 
 - Cross-site request forgery: an attacker circumvents the same-origin policy
-    and causes a user to execute actions inadvertantly by clicking on a link.
+    and causes a user to execute actions inadvertently by clicking on a link.
     These attacks abuse cookies from a legitimate website and exploit the fact
     that the browser is trusted by the vulnerable website.
 - Server-side request forgery: an attacker causes a server-side action to
@@ -518,7 +517,7 @@ API attacks: an Application Programming Interface may be vulnerable to attacks,
 allowing an attacker to carry out injection attacks, DoS/DDoS attacks and so
 on.
 
-Resource exhaustion: an attack where a computer resource (e.g. a server or
+Resource sxhaustion: an attack where a computer resource (e.g. a server or
 application) is deliberately crashed, caused to hang or otherwise interfered
 with which prevents legitimate users from accessing the resources as they are
 exhausted.
@@ -551,14 +550,55 @@ hashed version of the password instead of the password itself. This can affect
 single sign-on applications which may use password hashes instead of the actual
 password.
 
-## 1.4 Given a scenario, analyse potential indicators associated with network attacks
+# 5.0 Governance, Risk and Compliance
 
+## 5.1 Compare and contrast various types of controls
 
+Vulnerability: a flaw in the design of a system which can be exploited by a
+threat.
 
-## 1.5 Explain different threat actors, vectors, and intelligence sources
+Threat: an agent that can exploit vulnerabilities to cause harm or damage.
 
-## 1.6 Explain the security concerns associated with various types of vulnerabilities
+Risk: the potential for loss when a negative event occurs. This typically
+involves likelihood/uncertainty around the impacts of the event and typically
+focuses on the consequences. Risks are formed of two main components:
 
-## 1.7 Summarise the techniques used in security assessments
+- Impact: what will be damaged if the risk is realised? How badly?
+- Likelihood: how likely is it that the risk will occur?
 
-## 1.8 Explain the techniques used in penetration testing
+Control: a measure taken to reduce or neutralise the impact or likelihood of a
+risk. A risk which can be controlled still be acted on by a threat or may still
+relate to a vulnerability but the consequences of the risk have been mitigated.
+Several categories and types of control exist.
+
+Control categories:
+
+- Managerial: processes/controls that specify e.g. the standard operating
+  procedures or security policies of an organisation.
+- Operational: controls managed by people, e.g. training, security systems
+  (such as CCTV), etc.
+- Technical: controls managed/implemented on systems, e.g. firewalls,
+  antivirus, etc.
+
+Control types:
+
+- Preventive: controls that prevent access to a resource or area.
+    - Examples include firewalls, physical locks, etc.
+- Detective: controls that detect if a problem has occurred. These do not
+  prevent problems and need to be followed up on to be effective.
+    - Examples include logging systems, inventory checks, etc. 
+- Corrective: controls which correct errors and repair damage which might have
+  occurred. Additionally, these can pre
+    - Examples include patching systems, restoring databases or rebooting a
+      system.
+- Deterrent: controls which deter threats from acting. These do not detect or
+  actually prevent a risk from being realised.
+    - Examples include using a login/warning banner or lights/CCTV systems.
+- Compensating: controls which support the security requirement if the actual
+  requirement is unfeasible or cannot be met.
+    - Examples include using dual control or signatures instead of other data.
+- Physical: controls which have a physical presence.
+    - Examples include fences, security guards, etc.
+
+It is important to note that a single control might belong to multiple
+different types.
