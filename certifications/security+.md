@@ -602,3 +602,306 @@ Control types:
 
 It is important to note that a single control might belong to multiple
 different types.
+
+## 5.2 Explain the importance of applicable regulations, standards, or frameworks that impact an organisations security posture
+
+Several regulations, standards and frameworks govern how organisations should
+handle data and secure systems. The most common are listed and discussed below.
+
+General Data Protection Regulation (GDPR):
+- EU regulation governing how organisations process personal information of
+  individuals within and outside of the EU.
+
+- National/territory/state laws:
+    - USA: Computer Fraud and Abuse Act (CFAA)
+        - USA federal law to address hacking
+    - UK: Computer Misuse Act (CMA)
+        - UK law to address hacking
+- Frameworks and guidelines:
+    - Centre for Internet Security (CIS)
+        - Nonprofit organisation with several guidelines/controls
+    - National Institute for Standards and Technology (NIST)
+        - Risk Management Framework (RMF)
+            - Framework for managing risk
+            - Aimed at federal agencies/complying with legal requirements
+        - Cybersecurity Framework (CSF)
+            - Framework for managing/reducing cybersecurity risks
+            - Aimed at organisations seeking to improve security posture
+        - Special Publication 800-53 Security and Privacy Controls for
+          Information Systems and Organisations
+            - Standard guideline of controls for managing information security
+    - International Standards Organisation (ISO)
+        - ISO 27001 Information Security Management Systems Requirements
+        - ISO 27002 Information Security Controls
+        - ISO 27701 Security Techniques (Extension to ISO 27001 and ISO 27002)
+        - ISO 31000 Risk Management
+    - Statement on Standards for Attestation Engagements (SSAE)/International
+      Standard on Assurance Engagements (ISAE)
+        - System and Organisation Controls (SOC) 2
+            - Type 1
+            - Type 2
+    - Cloud Security Alliance
+        - Cloud Controls Matrix
+        - Reference Architecture
+
+## 5.3 Explain the importance of policies to organisational security
+
+Policies: internal guidelines which govern how members of an organisation act.
+These exist to ensure that personnel carry out their duties in a way that is
+appropriate and minimises damage, by specifying what needs to be done/not done
+and why.
+
+Security policies: policies that dictate how members of an organisation should
+act in order to maintain security (confidentiality, integrity and availability)
+and minimise the risk to security breaches. Policies may apply to specific
+areas of an organisation; the following policies apply to personnel acting
+within an organisation.
+
+Acceptable use policy (AUP): a policy which specifies what actions are
+acceptable when using an organisations IT resources, e.g. devices, networks,
+intranet or data. For example, an AUP may specify that employees not use
+devices to play video games.
+
+Job rotation: a policy where members maybe transferred to other roles within an
+organisation with different requirements/responsibilities. The aim is to
+prevent a single member gaining excessive knowledge or control over a
+particular system - that employee may then become critical to their function
+and irreplaceable or may become an insider threat. For example, job rotation
+may be applied to security guards to ensure that an area is always guarded.
+
+Mandatory vacation: a policy specifying that employees must take vacation. This
+is done to improve employee morale and to give them a break from work.
+Additionally, it prevents multiple employees from working together to carry out
+malicious actions by forcing them to be away from work for certain extended
+periods of time.
+
+Separation of duties: a concept where more than one person is required to
+complete a task, preventing a single person from misusing resources/systems.
+For example, the person responsible for creating invoices must not be the
+person responsible for authorising them. Separation of duties can be static or
+dynamic:
+
+- Static: define roles which are juxtaposed/conflicting, i.e. no two roles have
+  shared responsibilities. For example, two separate roles may be created for
+  modifying firewall rules: an "editor" who is responsible for changing
+  firewall rules and an "approver" who is responsible for approving and
+  integrating the changes into the firewall system.
+- Dynamic: define rules which dynamically enforce access to resources/carry out
+  actions. For example, an organisation may require that certain actions
+  follow the two person rule: any authorised user can carry out the action,
+  however they must be joined by another authorised user which must be
+  different from the first.
+
+Least privilege: a policy which specifies that a member of an organisation
+should have access to the least amount of privileges necessary to carry out
+their duties. For example, a user that carries out database management
+operations should not be allowed to also install packages unless that is also
+part of their job requirement.
+
+Clean desk space: a policy which requires members of organisations to clear
+their desk at the end of the working day. This is done to ensure that sensitive
+information is not leaked and that devices such as laptops or mobile phones are
+not stolen.
+
+Background checks: a policy which requires an organisation to check the
+criminal or other history of a potential employee before hiring them. This is
+done to understand their past and what potential risks exist when hiring a
+certain employee. For example, if a potential hire was convicted of stealing
+from their last job, they may be a greater security risk.
+
+Non-disclosure agreement (NDA): a policy which creates a confidentiality
+agreement between two agreeing parties. Both parties agree to not disclose
+certain information (typically an organisation and its members) to prevent data
+loss through leaks and protect intellectual property or sensitive information.
+NDAs may not be used to prevent employees from disclosing illegal actions.
+Examples include attorney-client privileges or agreements between an employee
+and employer to prevent leakage of trade secrets.
+
+Social media analysis: an organisation may track the social media accounts of
+employees or specify how employees conduct themselves on social media. This is
+done to prevent privacy and security.
+
+Onboarding: a policy which specifies how employees should be onboarded into an
+organisation. This includes ensuring they complete mandatory training on
+security, etc., reading policies relating to security and ensuring that they
+have the necessary tools and equipment to carry out their job correctly (e.g.
+ensuring they have access to necessary systems, ensuring they have necessary
+security tools such as smart cards or TOTP tokens, etc.).
+
+Offboarding: a policy which specifies the actions to take when an employee
+leaves an organisation. This includes ensuring that all resources (devices,
+information, files, etc.) that belong to an organisation are returned to the
+organisation, ensuring that access privileges are revoked and the user is
+removed from all systems to prevent them from accessing company systems again,
+etc.
+
+User training: training should be carried out regularly in line with
+laws/regulations to ensure that employees remain up to date with their
+knowledge on how to stay safe and prevent security breaches. Security awareness
+training may be carried out to ensure that users are aware of and understand
+the dangers that security threats pose to the organisation, and are equipped
+with the tools and understanding to prevent them from becoming a threat.
+Several strategies can be used to train users:
+
+- Gamification: the process of adding game like mechanics to learning systems
+  to improve engagement and retention of knowledge. Security training may use
+  quizzes or other gamification techniques to improve the effectiveness of
+  training.
+- Capture the flag: training programs where employees assume the role of
+  adversaries and attempt to capture "flags" by carrying out malicious
+  activities in a simulated environment. The aim is to teach employees the
+  possible methods attacker may use to breach security so that they may prevent
+  them from occurring.
+- Phishing campaigns: an organisation may simulate a phishing campaign to
+  understand the effectiveness of existing security training and policies and
+  to understand how to improve user understanding of phishing emails. A
+  company may also offer general training to recognise and identify phishing
+  emails, with specialist training offered to employees that are at a higher
+  risk (e.g. C-level executives, etc.)
+
+A diversity of training methods is necessary to ensure that training is
+comprehensive and that employees recall training appropriately. This may
+include presentations, interactive sessions, workshops and labs, conferences
+and more. Additionally, training material must be revised to ensure that it
+is kept up to date and that users find the training engaging and memorable -
+this will help to reduce the risks associated with employees and can help avoid
+regulatory issues including fines or other penalties.
+
+Security policies may also apply to data and how it is handled within an
+organisation. The following policies apply to data.
+
+Data classification: an organisation may document how different data is
+classified and create different categories of data based on its sensitivity.
+These different categories may have different requirements on how they should
+be handled (e.g. they must be encrypted at rest/in transit) and who can access
+them (public/employees/specific employees only).
+
+Data governance: a policy specifying how an organisation manages the
+accessibility, availability and integrity of data within itself, including how
+data is processed, how data is collected, how data is stored and how it is
+disposed of.
+
+Data retention: a policy which specifies how long data should be kept for
+before being deleted, and additionally may specify what measures should be
+taken to securely delete data and how data should be stored (e.g. encryption,
+etc.).
+
+Security policies may apply to credentials - information that can be used to
+verify access to a system or a resource. The following policies apply to
+different types of credentials.
+
+Credential management policies are put in place to ensure that credentials are
+used and stored appropriately. This may include specifying which protocols are
+used to authorise and authenticate users, how passwords should be stored and
+that different accounts have different privileges - access to certain resources
+are controlled and only authorised to users who need access to those
+researchers.
+
+Personnel credentials: a policy which specifies how employees should store,
+create and use credentials. This may include items such as password
+reuse/history/complexity and guide employees as to how credentials should be
+used/shared (e.g. PINs should never be shared). Additionally, it may specify
+different privileges of employees and how they can access different resources.
+
+Third party credentials: a policy which specifies how third party credentials
+are created/stored in a system. This may include how access to third party
+systems are managed, or alternatively how third parties are granted access to
+internal systems.
+
+Device credentials: a policy for managing the credentials used to access a
+particular device. These may differ between devices which may be higher risk,
+e.g. a mainframe system or a mobile device used by a high level employee (e.g.
+the CEO).
+
+Service accounts: a policy for managing service accounts. Service accounts may
+be used for performing automated actions without user direction, however still
+need to be monitored to prevent intrusion. Credentials used to access and
+manage these accounts need to be managed appropriately as there may be a need
+to share these with multiple team members, and there may need to be a
+"chain of custody" to determine who is responsible for owning and managing a
+service account.
+
+Administrator/root accounts: a policy which specifies how the credentials of
+users with privileged access are managed. These users have significantly more
+control over computer systems, consequently they may be subject to more
+stringent measures (e.g. changing passwords every 3 months instead of
+annually).
+
+Organisational policies dictate how organisational processes are performed.
+These include what security controls are put in place and at what stages,
+determining how systems should be set up, maintained, and shut down
+appropriately. Organisational policies apply to processes - not to personnel -
+and specify how a process should be carried out in order to maintain security.
+The following policies apply to organisational processes.
+
+Change management and change control: these policies dictates how changes are
+to be made and how they should be managed throughout their lifetime, from
+assessing the necessity, impact and risk of the change, to designing and
+developing the change, to documentation, to fallback procedures in case the
+change needs to be reversed. These policies may specify that different
+environments may need to be created to ensure that changes do not impact
+uptime (e.g. creating development, staging and production environments) or
+specifying that changes must be approved by change advisory boards before being
+implemented.
+
+Asset management: a policy to manage assets, including endpoints, servers,
+software, information and data. This policy includes how the asset should be
+set up, identified, stored, tracked and managed till its end of life and who is
+responsible for owning, maintaining and securing that asset. This may be used
+to track licenses, how particular applications are used across the
+organisation, workstations that need to be returned when an employee leaves,
+etc. and many other processes relating to managing assets to ensure that the
+asset themselves are secure.
+
+Third party risk management is how an organisation chooses to manage its third
+parties. These include both the clients and the suppliers/vendors that the
+organisation will work with. Several different policies and contracts may be
+enforced to manage expectations and risk associated with doing business with
+third parties.
+
+An organisation will typically keep a database of suppliers or vendors. This is a
+record of all third parties from whom the organisation procures some service or
+product. The database typically contains details about what the third party
+provides, any risks associated with that third party (and how these are
+managed), the appropriate contact details in case of issues, and others.
+Additionally, an organisation will have measures to onboard, regularly
+monitor/evaluate and offboard vendors, including due diligence to be
+performed and different risks to be considered and evaluated.
+
+An organisation may use their database to construct an understanding of the
+wider supply chain network that an organisation relies on. Say organisation A
+buys a service from organisation B, who in turn buys a product from
+organisation C. The product sold from C to B is critical to the service
+provided by B to A. It would be prudent for A to monitor C in addition to B, as
+they form part of the supply chain that enables A to sell its own
+products/services.
+
+Business partners are a form of alliances between two or more organisations,
+where they agree to work together to achieve some mutual outcome. These may be
+contractual or casual in nature, however it is important to note that these
+relationships might exist and should be managed appropriately.
+
+To manage the relationship with third parties, organisations use several
+documents and policies to reduce risk and set expectations. These include:
+
+- Service level agreements (SLAs): these set the expected service uptime for
+  the organisation and provides details on how these should be monitored, what
+  to do if these are breached, and risks which may impact SLAs.
+- Memorandum of Understanding (MoU): this is a statement of intent between two
+  or more parties to carry out some agreed activity. While not necessarily
+  legally binding, MoUs form an agreement between the involved parties that is
+  formal and documented.
+- Measurement systems analysis (MSA): a method for measuring the impact of a
+  service.
+- Business partnership agreement (BPA): an agreement between two or more
+  organisations to achieve some common goal.
+- End of Life (EoL), End of Sevice Life (EoSL): a particular product or service
+  may be supported for a limited amount of time, after which it will be classed
+  as end of life. An organisation may need to consider the additional costs of
+  using services with closer EoLs, whether or not they can transition to a new
+  product or service, and what security fixes or updates may still be applied
+  when a product/service reaches EoL and for how long.
+- Non-disclosure agreements (NDAs): used for preventing trade secrets and other
+  sensitive/confidential material from being leaked or disclosed by third
+  party organisations.
+
